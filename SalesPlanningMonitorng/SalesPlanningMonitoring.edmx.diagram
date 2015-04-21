@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e828b98228ab44c9be6ed7e1a1c825b3" Name="Diagram1">
+        <EntityTypeShape EntityType="psbkModel.Barang" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Detail_penjualan" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Karyawan" Width="1.5" PointX="3.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Kelompok" Width="1.5" PointX="6" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Login" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Penjualan" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Rencana" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Stok" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="psbkModel.Toko" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="psbkModel.FK_Detail_Barang" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Penjualan_Barang" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Rencana_Barang" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Stok_Barang" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Detail_Penjualan" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Penjualan_Karyawan" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Penjualan_Toko" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.FK_Stok_Toko" ManuallyRouted="false" />
+        <AssociationConnector Association="psbkModel.KelompokSales" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

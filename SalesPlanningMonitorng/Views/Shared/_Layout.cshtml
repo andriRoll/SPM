@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/uikit.css")
+    @Styles.Render("~/Content/uikit.almost-flat.min.css")
+    @Styles.Render("~/Content/percent-pie.css")
+    @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/Scripts/jquery-2.1.0.js")
+    @Scripts.Render("~/Scripts/uikit.min.js")
+    @Scripts.Render("~/Scripts/easypiechart.js")
+    @Scripts.Render("~/Scripts/Chart.js")
+    @Scripts.Render("~/Scripts/jquery.animateNumber.js")
+    @Scripts.Render("~/Scripts/components/grid.js")
+    @Scripts.Render("~/Scripts/components/sticky.js")
+
+</head>
+<body>
+    <div class="uk-container-center">
+        <!-- slide-nav -->
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-4 uk-hidden-small cs-slide-nav">
+                <div class="uk-panel uk-panel-box uk-text-center cs-head-slide-nav">
+                    <ul class="uk-list">
+                        <li class="uk-float-left"><img class="uk-border-circle uk-margin-small-left" src="../Images/placeholder_200x200.svg" width="75" height="75" alt="Border circle"></li>
+                        <li>
+                            <h3>Azam</h3>
+                            <h4>Manager</h4>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="uk-panel">
+
+                    <div class="uk-width-1-1 uk-panel-box cs-search">
+                        <div class="uk-width-5-6 cs-form-search">
+                            <ul class="uk-list">
+                                <li>
+                                    <form class="uk-form" data-uk-margin="">
+                                        <div class="uk-form-icon">
+                                            <i class="uk-icon-search"></i>
+                                            <input type="text" placeholder="search">
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="uk-button-group uk-float-right cs-setting">
+
+                            <div data-uk-dropdown="{mode:'click'}" class="cs-setting-run">
+                                <button class="uk-button"><i class="uk-icon-small uk-icon-gear"></i></button>
+                                <div class="uk-dropdown uk-dropdown-small uk-margin-right cs-drop-setting">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#">Separated item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="uk-nav uk-nav-side uk-nav-parent-icon uk-panel-box uk-margin-top cs-list-slide-nav" data-uk-nav>
+                        <li>@Html.ActionLink("Home","Index","Home")</li>
+                        <li>@Html.ActionLink("Barang", "Index", "Barang")</li>
+                        <li class="uk-parent">
+                            <a href="#">Wilayah</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Bandung Barat</a></li>
+                                <li><a href="#">Bandung Timur</a></li>
+                                <li><a href="#">Bandung Tengah</a></li>
+                                <li><a href="#">Bandung Selatan</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <div style="overflow: hidden; height: 0px; position: relative;">
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- end-slide-nav -->
+            <!-- container-slide -->
+            <div class="uk-container-center uk-width-medium-3-4">
+
+                <!-- mobile-navbar -->
+                <nav class="uk-navbar uk-margin-large-bottom uk-hidden-large ">
+                    <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                    <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
+                </nav>
+                <!-- end-mobile-navbar -->
+                
+                
+                    @RenderBody()
+
+                </div>
+            <!-- footer -->
+            <hr class="uk-grid-divider">
+            <div class="uk-grid">
+                <div class="uk-width-1-1 uk-panel-box uk-text-center cs-remove-background cs-footer">
+                    <p>GANGSING APP</p>
+                </div>
+                <!-- end-footer -->
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div id="offcanvas" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-offcanvas">
+                <li>
+                    <a href="layouts_frontpage.html">Frontpage</a>
+                </li>
+                <li>
+                    <a href="layouts_portfolio.html">Portfolio</a>
+                </li>
+                <li class="uk-active">
+                    <a href="layouts_blog.html">Blog</a>
+                </li>
+                <li>
+                    <a href="layouts_documentation.html">Documentation</a>
+                </li>
+                <li>
+                    <a href="layouts_contact.html">Contact</a>
+                </li>
+                <li>
+                    <a href="layouts_login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+       
+</body>
+@Scripts.Render("~/Scripts/gangsing.js")
+
+</html>

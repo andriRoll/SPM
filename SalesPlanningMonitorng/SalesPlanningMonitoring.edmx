@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="psbkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Barang">
+          <Key>
+            <PropertyRef Name="id_barang" />
+          </Key>
+          <Property Name="id_barang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama_barang" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="harga" Type="money" Nullable="false" />
+          <Property Name="kategori" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Detail_penjualan">
+          <Key>
+            <PropertyRef Name="id_barang" />
+            <PropertyRef Name="id_penjualan" />
+          </Key>
+          <Property Name="id_barang" Type="int" Nullable="false" />
+          <Property Name="id_penjualan" Type="int" Nullable="false" />
+          <Property Name="jumlah" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Karyawan">
+          <Key>
+            <PropertyRef Name="id_karyawan" />
+          </Key>
+          <Property Name="id_karyawan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="alamat" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="no_telp" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="tanggal_lahir" Type="datetime" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Kelompok">
+          <Key>
+            <PropertyRef Name="id_kelompok" />
+          </Key>
+          <Property Name="id_kelompok" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama_kelompok" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KelompokSales">
+          <Key>
+            <PropertyRef Name="id_kelompok" />
+            <PropertyRef Name="id_karyawan" />
+          </Key>
+          <Property Name="id_kelompok" Type="int" Nullable="false" />
+          <Property Name="id_karyawan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="id_login" />
+          </Key>
+          <Property Name="id_login" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="pass" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="grup" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Penjualan">
+          <Key>
+            <PropertyRef Name="id_penjualan" />
+          </Key>
+          <Property Name="id_penjualan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_barang" Type="int" />
+          <Property Name="id_toko" Type="int" />
+          <Property Name="id_karyawan" Type="int" />
+          <Property Name="tanggal_transaksi" Type="datetime" Nullable="false" />
+          <Property Name="jumlah_total" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rencana">
+          <Key>
+            <PropertyRef Name="id_target" />
+          </Key>
+          <Property Name="id_target" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_barang" Type="int" />
+          <Property Name="target_jual" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="id_barang" />
+            <PropertyRef Name="id_toko" />
+          </Key>
+          <Property Name="id_barang" Type="int" Nullable="false" />
+          <Property Name="id_toko" Type="int" Nullable="false" />
+          <Property Name="jumlah" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Toko">
+          <Key>
+            <PropertyRef Name="id_toko" />
+          </Key>
+          <Property Name="id_toko" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama_toko" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="alamat" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="wilayah" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Detail_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="1" />
+          <End Role="Detail_penjualan" Type="Self.Detail_penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Detail_penjualan">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detail_Penjualan">
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="1" />
+          <End Role="Detail_penjualan" Type="Self.Detail_penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Penjualan">
+              <PropertyRef Name="id_penjualan" />
+            </Principal>
+            <Dependent Role="Detail_penjualan">
+              <PropertyRef Name="id_penjualan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kelompok_Karyawan">
+          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="1" />
+          <End Role="KelompokSales" Type="Self.KelompokSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karyawan">
+              <PropertyRef Name="id_karyawan" />
+            </Principal>
+            <Dependent Role="KelompokSales">
+              <PropertyRef Name="id_karyawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kelompok_Kelompok">
+          <End Role="Kelompok" Type="Self.Kelompok" Multiplicity="1" />
+          <End Role="KelompokSales" Type="Self.KelompokSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kelompok">
+              <PropertyRef Name="id_kelompok" />
+            </Principal>
+            <Dependent Role="KelompokSales">
+              <PropertyRef Name="id_kelompok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Karyawan">
+          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karyawan">
+              <PropertyRef Name="id_karyawan" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_karyawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Toko">
+          <End Role="Toko" Type="Self.Toko" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toko">
+              <PropertyRef Name="id_toko" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_toko" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rencana_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="0..1" />
+          <End Role="Rencana" Type="Self.Rencana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Rencana">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_Toko">
+          <End Role="Toko" Type="Self.Toko" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toko">
+              <PropertyRef Name="id_toko" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="id_toko" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="psbkModelStoreContainer">
+          <EntitySet Name="Barang" EntityType="Self.Barang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detail_penjualan" EntityType="Self.Detail_penjualan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Karyawan" EntityType="Self.Karyawan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kelompok" EntityType="Self.Kelompok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KelompokSales" EntityType="Self.KelompokSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Penjualan" EntityType="Self.Penjualan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rencana" EntityType="Self.Rencana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Toko" EntityType="Self.Toko" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Detail_Barang" Association="Self.FK_Detail_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="Detail_penjualan" EntitySet="Detail_penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detail_Penjualan" Association="Self.FK_Detail_Penjualan">
+            <End Role="Penjualan" EntitySet="Penjualan" />
+            <End Role="Detail_penjualan" EntitySet="Detail_penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kelompok_Karyawan" Association="Self.FK_Kelompok_Karyawan">
+            <End Role="Karyawan" EntitySet="Karyawan" />
+            <End Role="KelompokSales" EntitySet="KelompokSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kelompok_Kelompok" Association="Self.FK_Kelompok_Kelompok">
+            <End Role="Kelompok" EntitySet="Kelompok" />
+            <End Role="KelompokSales" EntitySet="KelompokSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Barang" Association="Self.FK_Penjualan_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="Penjualan" EntitySet="Penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Karyawan" Association="Self.FK_Penjualan_Karyawan">
+            <End Role="Karyawan" EntitySet="Karyawan" />
+            <End Role="Penjualan" EntitySet="Penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Toko" Association="Self.FK_Penjualan_Toko">
+            <End Role="Toko" EntitySet="Toko" />
+            <End Role="Penjualan" EntitySet="Penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rencana_Barang" Association="Self.FK_Rencana_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="Rencana" EntitySet="Rencana" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_Barang" Association="Self.FK_Stok_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="Stok" EntitySet="Stok" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_Toko" Association="Self.FK_Stok_Toko">
+            <End Role="Toko" EntitySet="Toko" />
+            <End Role="Stok" EntitySet="Stok" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="psbkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Barang">
+          <Key>
+            <PropertyRef Name="id_barang" />
+          </Key>
+          <Property Name="id_barang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama_barang" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="harga" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="kategori" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Detail_penjualan" Relationship="Self.FK_Detail_Barang" FromRole="Barang" ToRole="Detail_penjualan" />
+          <NavigationProperty Name="Penjualans" Relationship="Self.FK_Penjualan_Barang" FromRole="Barang" ToRole="Penjualan" />
+          <NavigationProperty Name="Rencanas" Relationship="Self.FK_Rencana_Barang" FromRole="Barang" ToRole="Rencana" />
+          <NavigationProperty Name="Stoks" Relationship="Self.FK_Stok_Barang" FromRole="Barang" ToRole="Stok" />
+        </EntityType>
+        <EntityType Name="Detail_penjualan">
+          <Key>
+            <PropertyRef Name="id_barang" />
+            <PropertyRef Name="id_penjualan" />
+          </Key>
+          <Property Name="id_barang" Type="Int32" Nullable="false" />
+          <Property Name="id_penjualan" Type="Int32" Nullable="false" />
+          <Property Name="jumlah" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="Self.FK_Detail_Barang" FromRole="Detail_penjualan" ToRole="Barang" />
+          <NavigationProperty Name="Penjualan" Relationship="Self.FK_Detail_Penjualan" FromRole="Detail_penjualan" ToRole="Penjualan" />
+        </EntityType>
+        <EntityType Name="Karyawan">
+          <Key>
+            <PropertyRef Name="id_karyawan" />
+          </Key>
+          <Property Name="id_karyawan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="alamat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="no_telp" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tanggal_lahir" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Penjualans" Relationship="Self.FK_Penjualan_Karyawan" FromRole="Karyawan" ToRole="Penjualan" />
+          <NavigationProperty Name="Kelompoks" Relationship="Self.KelompokSales" FromRole="Karyawan" ToRole="Kelompok" />
+        </EntityType>
+        <EntityType Name="Kelompok">
+          <Key>
+            <PropertyRef Name="id_kelompok" />
+          </Key>
+          <Property Name="id_kelompok" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama_kelompok" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Karyawans" Relationship="Self.KelompokSales" FromRole="Kelompok" ToRole="Karyawan" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="id_login" />
+          </Key>
+          <Property Name="id_login" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="grup" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Penjualan">
+          <Key>
+            <PropertyRef Name="id_penjualan" />
+          </Key>
+          <Property Name="id_penjualan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_barang" Type="Int32" />
+          <Property Name="id_toko" Type="Int32" />
+          <Property Name="id_karyawan" Type="Int32" />
+          <Property Name="tanggal_transaksi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="jumlah_total" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="Self.FK_Penjualan_Barang" FromRole="Penjualan" ToRole="Barang" />
+          <NavigationProperty Name="Detail_penjualan" Relationship="Self.FK_Detail_Penjualan" FromRole="Penjualan" ToRole="Detail_penjualan" />
+          <NavigationProperty Name="Karyawan" Relationship="Self.FK_Penjualan_Karyawan" FromRole="Penjualan" ToRole="Karyawan" />
+          <NavigationProperty Name="Toko" Relationship="Self.FK_Penjualan_Toko" FromRole="Penjualan" ToRole="Toko" />
+        </EntityType>
+        <EntityType Name="Rencana">
+          <Key>
+            <PropertyRef Name="id_target" />
+          </Key>
+          <Property Name="id_target" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_barang" Type="Int32" />
+          <Property Name="target_jual" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="Self.FK_Rencana_Barang" FromRole="Rencana" ToRole="Barang" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="id_barang" />
+            <PropertyRef Name="id_toko" />
+          </Key>
+          <Property Name="id_barang" Type="Int32" Nullable="false" />
+          <Property Name="id_toko" Type="Int32" Nullable="false" />
+          <Property Name="jumlah" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="Self.FK_Stok_Barang" FromRole="Stok" ToRole="Barang" />
+          <NavigationProperty Name="Toko" Relationship="Self.FK_Stok_Toko" FromRole="Stok" ToRole="Toko" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Toko">
+          <Key>
+            <PropertyRef Name="id_toko" />
+          </Key>
+          <Property Name="id_toko" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama_toko" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="alamat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wilayah" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Penjualans" Relationship="Self.FK_Penjualan_Toko" FromRole="Toko" ToRole="Penjualan" />
+          <NavigationProperty Name="Stoks" Relationship="Self.FK_Stok_Toko" FromRole="Toko" ToRole="Stok" />
+        </EntityType>
+        <Association Name="FK_Detail_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="1" />
+          <End Role="Detail_penjualan" Type="Self.Detail_penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Detail_penjualan">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rencana_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="0..1" />
+          <End Role="Rencana" Type="Self.Rencana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Rencana">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_Barang">
+          <End Role="Barang" Type="Self.Barang" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="id_barang" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="id_barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detail_Penjualan">
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="1" />
+          <End Role="Detail_penjualan" Type="Self.Detail_penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Penjualan">
+              <PropertyRef Name="id_penjualan" />
+            </Principal>
+            <Dependent Role="Detail_penjualan">
+              <PropertyRef Name="id_penjualan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Karyawan">
+          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karyawan">
+              <PropertyRef Name="id_karyawan" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_karyawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Penjualan_Toko">
+          <End Role="Toko" Type="Self.Toko" Multiplicity="0..1" />
+          <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toko">
+              <PropertyRef Name="id_toko" />
+            </Principal>
+            <Dependent Role="Penjualan">
+              <PropertyRef Name="id_toko" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stok_Toko">
+          <End Role="Toko" Type="Self.Toko" Multiplicity="1" />
+          <End Role="Stok" Type="Self.Stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toko">
+              <PropertyRef Name="id_toko" />
+            </Principal>
+            <Dependent Role="Stok">
+              <PropertyRef Name="id_toko" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KelompokSales">
+          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="*" />
+          <End Role="Kelompok" Type="Self.Kelompok" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="psbkEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Barangs" EntityType="Self.Barang" />
+          <EntitySet Name="Detail_penjualan" EntityType="Self.Detail_penjualan" />
+          <EntitySet Name="Karyawans" EntityType="Self.Karyawan" />
+          <EntitySet Name="Kelompoks" EntityType="Self.Kelompok" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Penjualans" EntityType="Self.Penjualan" />
+          <EntitySet Name="Rencanas" EntityType="Self.Rencana" />
+          <EntitySet Name="Stoks" EntityType="Self.Stok" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tokoes" EntityType="Self.Toko" />
+          <AssociationSet Name="FK_Detail_Barang" Association="Self.FK_Detail_Barang">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="Detail_penjualan" EntitySet="Detail_penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Barang" Association="Self.FK_Penjualan_Barang">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="Penjualan" EntitySet="Penjualans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rencana_Barang" Association="Self.FK_Rencana_Barang">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="Rencana" EntitySet="Rencanas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_Barang" Association="Self.FK_Stok_Barang">
+            <End Role="Barang" EntitySet="Barangs" />
+            <End Role="Stok" EntitySet="Stoks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detail_Penjualan" Association="Self.FK_Detail_Penjualan">
+            <End Role="Penjualan" EntitySet="Penjualans" />
+            <End Role="Detail_penjualan" EntitySet="Detail_penjualan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Karyawan" Association="Self.FK_Penjualan_Karyawan">
+            <End Role="Karyawan" EntitySet="Karyawans" />
+            <End Role="Penjualan" EntitySet="Penjualans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Penjualan_Toko" Association="Self.FK_Penjualan_Toko">
+            <End Role="Toko" EntitySet="Tokoes" />
+            <End Role="Penjualan" EntitySet="Penjualans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stok_Toko" Association="Self.FK_Stok_Toko">
+            <End Role="Toko" EntitySet="Tokoes" />
+            <End Role="Stok" EntitySet="Stoks" />
+          </AssociationSet>
+          <AssociationSet Name="KelompokSales" Association="Self.KelompokSales">
+            <End Role="Karyawan" EntitySet="Karyawans" />
+            <End Role="Kelompok" EntitySet="Kelompoks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="psbkModelStoreContainer" CdmEntityContainer="psbkEntities2">
+          <EntitySetMapping Name="Barangs">
+            <EntityTypeMapping TypeName="psbkModel.Barang">
+              <MappingFragment StoreEntitySet="Barang">
+                <ScalarProperty Name="id_barang" ColumnName="id_barang" />
+                <ScalarProperty Name="nama_barang" ColumnName="nama_barang" />
+                <ScalarProperty Name="harga" ColumnName="harga" />
+                <ScalarProperty Name="kategori" ColumnName="kategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detail_penjualan">
+            <EntityTypeMapping TypeName="psbkModel.Detail_penjualan">
+              <MappingFragment StoreEntitySet="Detail_penjualan">
+                <ScalarProperty Name="id_barang" ColumnName="id_barang" />
+                <ScalarProperty Name="id_penjualan" ColumnName="id_penjualan" />
+                <ScalarProperty Name="jumlah" ColumnName="jumlah" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Karyawans">
+            <EntityTypeMapping TypeName="psbkModel.Karyawan">
+              <MappingFragment StoreEntitySet="Karyawan">
+                <ScalarProperty Name="id_karyawan" ColumnName="id_karyawan" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="alamat" ColumnName="alamat" />
+                <ScalarProperty Name="no_telp" ColumnName="no_telp" />
+                <ScalarProperty Name="tanggal_lahir" ColumnName="tanggal_lahir" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kelompoks">
+            <EntityTypeMapping TypeName="psbkModel.Kelompok">
+              <MappingFragment StoreEntitySet="Kelompok">
+                <ScalarProperty Name="id_kelompok" ColumnName="id_kelompok" />
+                <ScalarProperty Name="nama_kelompok" ColumnName="nama_kelompok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="psbkModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="id_login" ColumnName="id_login" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="grup" ColumnName="grup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Penjualans">
+            <EntityTypeMapping TypeName="psbkModel.Penjualan">
+              <MappingFragment StoreEntitySet="Penjualan">
+                <ScalarProperty Name="id_penjualan" ColumnName="id_penjualan" />
+                <ScalarProperty Name="id_barang" ColumnName="id_barang" />
+                <ScalarProperty Name="id_toko" ColumnName="id_toko" />
+                <ScalarProperty Name="id_karyawan" ColumnName="id_karyawan" />
+                <ScalarProperty Name="tanggal_transaksi" ColumnName="tanggal_transaksi" />
+                <ScalarProperty Name="jumlah_total" ColumnName="jumlah_total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rencanas">
+            <EntityTypeMapping TypeName="psbkModel.Rencana">
+              <MappingFragment StoreEntitySet="Rencana">
+                <ScalarProperty Name="id_target" ColumnName="id_target" />
+                <ScalarProperty Name="id_barang" ColumnName="id_barang" />
+                <ScalarProperty Name="target_jual" ColumnName="target_jual" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stoks">
+            <EntityTypeMapping TypeName="psbkModel.Stok">
+              <MappingFragment StoreEntitySet="Stok">
+                <ScalarProperty Name="id_barang" ColumnName="id_barang" />
+                <ScalarProperty Name="id_toko" ColumnName="id_toko" />
+                <ScalarProperty Name="jumlah" ColumnName="jumlah" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="psbkModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokoes">
+            <EntityTypeMapping TypeName="psbkModel.Toko">
+              <MappingFragment StoreEntitySet="Toko">
+                <ScalarProperty Name="id_toko" ColumnName="id_toko" />
+                <ScalarProperty Name="nama_toko" ColumnName="nama_toko" />
+                <ScalarProperty Name="alamat" ColumnName="alamat" />
+                <ScalarProperty Name="wilayah" ColumnName="wilayah" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="KelompokSales" TypeName="psbkModel.KelompokSales" StoreEntitySet="KelompokSales">
+            <EndProperty Name="Karyawan">
+              <ScalarProperty Name="id_karyawan" ColumnName="id_karyawan" />
+            </EndProperty>
+            <EndProperty Name="Kelompok">
+              <ScalarProperty Name="id_kelompok" ColumnName="id_kelompok" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

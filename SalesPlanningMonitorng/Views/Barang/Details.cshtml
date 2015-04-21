@@ -1,0 +1,42 @@
+﻿@model SalesPlanningMonitorng.Barang
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Barang</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nama_barang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nama_barang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.harga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.harga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kategori)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kategori)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_barang }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
