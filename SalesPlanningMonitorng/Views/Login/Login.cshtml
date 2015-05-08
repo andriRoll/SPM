@@ -1,0 +1,56 @@
+﻿@model SalesPlanningMonitorng.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+<body class="uk-height-1-1">
+
+    <div class="uk-vertical-align uk-text-center uk-height-1-1">
+        <div class="uk-vertical-align-middle" style="width: 250px;">
+
+            <div class="bodyLogo uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-top" data-docs-animation="uk-animation-slide-top">
+                <img class="" width="140" height="120" src="../../Images/gangsing.png" alt="">
+                <h2 class="uk-h2 ">GANGSING APP</h2>
+            </div>
+
+            <div class="uk-panel uk-panel-box uk-panel-box-secondary uk-form containerLogin uk-margin-top delay uk-animation-fade " name="login" data-docs-animation="uk-animation-fade">
+                @using(Html.BeginForm("Login","Login", FormMethod.Post)){
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    if (@ViewBag.Message != null) { 
+                        <div style="border: 1px solid red">
+                            @ViewBag.Message
+                        </div>
+                    }
+                    
+                    <div class="uk-form-row">
+                        <h3 class="uk-h5 ">Username</h3>
+                        @Html.TextBoxFor(item => item.username, new { @class = "uk-width-1-1 uk-form-large"})
+                        @Html.ValidationMessageFor(item => item.username)
+                    </div>
+                    <div class="uk-form-row">
+                        <h3 class="uk-h5 ">Password</h3>
+                        @Html.PasswordFor(item => item.pass, new { @class = "uk-width-1-1 uk-form-large" })
+                        @Html.ValidationMessageFor(item => item.pass)
+                    </div>
+                    <div class="uk-form-row">
+                        <input type="submit" value="Login" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" style=" color: white"/>
+                    </div>
+                    <div class="uk-form-row uk-text-small">
+                        <label class="uk-float-left"><input type="checkbox"> Remember Me</label>
+                        <a class="uk-float-right uk-link uk-link-muted" href="#">Forgot Password?</a>
+                    </div>
+                }
+
+            </div>
+
+            <div class="uk-alert uk-alert-danger" id="alert" data-uk-alert="">
+                <a href="" class="uk-alert-close uk-close"></a>
+                <p>Wrong username or password</p>
+            </div>
+
+        </div>
+    </div>

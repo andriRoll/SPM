@@ -1,0 +1,49 @@
+﻿<html lang="en-gb" dir="ltr">
+<head>
+    <title>Login page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css uikit -->
+    @Styles.Render("~/Content/uikit.almost-flat.css")
+    @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/Scripts/jquery-2.1.0.js")
+    @Scripts.Render("~/Scripts/uikit.min.js")
+
+
+</head>
+<body>
+
+    @RenderBody()
+
+</body>
+
+    <script>
+
+
+        $("#alert").hide();
+
+        $("#login").click(function () {
+
+            var username = document.login.username.value;
+            username = username.toLowerCase();
+
+            var password = document.login.password.value;
+            password = password.toLowerCase();
+
+
+            if (username == "admin" && password == "123") {
+                document.location.href = "view/cb.html";
+
+            } else {
+                $("#alert").fadeIn("slow");
+
+            }
+
+        });
+
+
+    </script>
+</html>
+

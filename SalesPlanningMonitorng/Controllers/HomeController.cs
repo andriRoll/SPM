@@ -13,6 +13,11 @@ namespace SalesPlanningMonitorng.Controllers
             return View();
         }
 
+        public ActionResult IndexSales()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

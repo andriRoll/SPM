@@ -206,3 +206,7 @@
 	border: 1px solid #ddd; 
 	border-radius: 6px;
 }
+
+.cs-min-height {
+    min-height:429px;
+}

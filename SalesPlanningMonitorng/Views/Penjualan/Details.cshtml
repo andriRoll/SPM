@@ -1,0 +1,66 @@
+﻿@model SalesPlanningMonitorng.Penjualan
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Penjualan</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tanggal_transaksi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tanggal_transaksi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.jumlah_total)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.jumlah_total)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Barang.nama_barang)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Barang.nama_barang)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Karyawan.nama)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Karyawan.nama)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Toko.nama_toko)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Toko.nama_toko)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_penjualan }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

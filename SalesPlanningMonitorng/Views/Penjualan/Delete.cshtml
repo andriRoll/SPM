@@ -1,0 +1,68 @@
+﻿@model SalesPlanningMonitorng.Penjualan
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutSales.cshtml";
+}
+
+<!-- container-slide -->
+<div class="uk-container-center uk-width-medium-3-4 cs-containter-heigth">
+
+    <!-- mobile-navbar -->
+    <nav class="uk-navbar uk-margin-large-bottom uk-hidden-large ">
+        <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+        <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Sales Planning and Monitoring</div>
+    </nav>
+    <!-- end-mobile-navbar -->
+    <!-- container-slide-container -->
+    <div class="uk-grid uk-margin-right uk-margin-small-left uk-margin-large-top uk-margin-large-bottom" data-uk-grid-margin="">
+
+        <!-- form-pengisian-barang -->
+        <div class="uk-width-medium-1-1 cs-min-height">
+            <div class="uk-panel uk-panel-header">
+
+                <h3 class="uk-panel-title">Delete Barang</h3>
+                <h3>Apakah anda yakin akan menghapus transaksi @Html.DisplayFor(model => model.Barang.nama_barang) ?</h3>
+                <!-- tabel-penjualan -->
+                <div class="uk-overflow-container uk-margin-large-top">
+
+                    <table class="uk-table uk-table-striped uk-table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Tanggal Transaksi</th>
+                                <th>Jumlah Transaksi</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>@Html.DisplayFor(model => model.Barang.nama_barang)</td>
+                                <td>@Html.DisplayFor(model => model.tanggal_transaksi)</td>
+                                <td>@Html.DisplayFor(model => model.jumlah_total)</td>
+                                <td>
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-actions no-color">
+                                            <input type="submit" value="Delete" class="uk-button uk-button-danger" />
+                                            <a class="uk-button uk-button-success" @Html.ActionLink("Back to List", "Index")
+
+
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end-form-pengisian-barang -->
+
+        </div>
+
+
+    </div>

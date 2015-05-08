@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SalesPlanningMonitorng.KelompokSale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
+}
+
+
+<!-- container-slide -->
+<div class="uk-container-center uk-width-medium-3-4 cs-containter-heigth">
+
+    <!-- mobile-navbar -->
+    <nav class="uk-navbar uk-margin-large-bottom uk-hidden-large ">
+        <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+        <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Sales Planning and Monitoring</div>
+    </nav>
+    <!-- end-mobile-navbar -->
+    <!-- container-slide-container -->
+    <div class="uk-grid uk-margin-right uk-margin-small-left uk-margin-large-top uk-margin-large-bottom" data-uk-grid-margin="">
+
+        <!-- form-pengisian-barang -->
+        <div class="uk-width-medium-1-1 cs-min-height">
+            <div class="uk-panel uk-panel-header">
+
+                <h3 class="uk-panel-title">List Kelompok Karyawan</h3>
+                <!-- tabel-penjualan -->
+                <div class="uk-overflow-container uk-margin-large-top">
+                    <a class="uk-icon-button uk-icon-hover uk-icon-clipboard" data-uk-tooltip="{pos:'right'}" title="Add Pengelompokan" data-cached-title="Tambah Rencana" @Html.ActionLink(" ", "Create")
+                        <i></i>
+                        <table class="uk-table uk-table-striped uk-table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Nama Karyawan
+                                    </th>
+                                    <th>
+                                        Nama Kelompok
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Karyawan.nama)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Kelompok.nama_kelompok)
+                                        </td>
+                                        <td>
+
+                                            <a class="uk-icon-small uk-icon-hover uk-icon-edit uk-margin-right" data-uk-tooltip="" title="Edit" data-cached-title="Edit" @Html.ActionLink(" ", "Edit", new { id = item.id_kelompokSales })
+                                            <a class="uk-icon-small uk-icon-hover uk-icon-trash" data-uk-tooltip="" title="Hapus" data-cached-title="Hapus" @Html.ActionLink(" ", "Delete", new { id = item.id_kelompokSales })<i></i>
+
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                </div>
+                <!-- pagination -->
+                <ul class="uk-pagination" data-uk-pagination="{items:100, itemsOnPage:10, currentPage:1}">
+                    <li><a href="#page-1" data-page="0">1</a></li>
+                    <li><a href="#page-2" data-page="1">2</a></li>
+                    <li><a href="#page-3" data-page="2">3</a></li>
+                    <li><span>...</span></li>
+                    <li><a href="#page-19" data-page="18">19</a></li>
+                    <li class="uk-active"><span>20</span></li>
+                    <li><a href="#page-21" data-page="20">21</a></li>
+                    <li><span>...</span></li>
+                    <li><a href="#page-98" data-page="97">98</a></li>
+                    <li><a href="#page-99" data-page="98">99</a></li>
+                    <li><a href="#page-100" data-page="99">100</a></li>
+                </ul>
+                <!-- end-pagination -->
+            </div>
+            <!-- end-form-pengisian-barang -->
+
+        </div>
+
+
+    </div>

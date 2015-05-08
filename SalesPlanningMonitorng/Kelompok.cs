@@ -16,12 +16,12 @@ namespace SalesPlanningMonitorng
     {
         public Kelompok()
         {
-            this.Karyawans = new HashSet<Karyawan>();
+            this.KelompokSales = new HashSet<KelompokSale>();
         }
     
         public int id_kelompok { get; set; }
         public string nama_kelompok { get; set; }
     
-        public virtual ICollection<Karyawan> Karyawans { get; set; }
+        public virtual ICollection<KelompokSale> KelompokSales { get; set; }
     }
 }

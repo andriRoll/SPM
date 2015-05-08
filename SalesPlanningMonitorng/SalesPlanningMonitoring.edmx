@@ -43,9 +43,9 @@
         </EntityType>
         <EntityType Name="KelompokSales">
           <Key>
-            <PropertyRef Name="id_kelompok" />
-            <PropertyRef Name="id_karyawan" />
+            <PropertyRef Name="id_kelompokSales" />
           </Key>
+          <Property Name="id_kelompokSales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_kelompok" Type="int" Nullable="false" />
           <Property Name="id_karyawan" Type="int" Nullable="false" />
         </EntityType>
@@ -317,8 +317,8 @@
           <Property Name="no_telp" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="tanggal_lahir" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KelompokSales" Relationship="Self.FK_Kelompok_Karyawan" FromRole="Karyawan" ToRole="KelompokSales" />
           <NavigationProperty Name="Penjualans" Relationship="Self.FK_Penjualan_Karyawan" FromRole="Karyawan" ToRole="Penjualan" />
-          <NavigationProperty Name="Kelompoks" Relationship="Self.KelompokSales" FromRole="Karyawan" ToRole="Kelompok" />
         </EntityType>
         <EntityType Name="Kelompok">
           <Key>
@@ -326,7 +326,17 @@
           </Key>
           <Property Name="id_kelompok" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nama_kelompok" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Karyawans" Relationship="Self.KelompokSales" FromRole="Kelompok" ToRole="Karyawan" />
+          <NavigationProperty Name="KelompokSales" Relationship="Self.FK_Kelompok_Kelompok" FromRole="Kelompok" ToRole="KelompokSales" />
+        </EntityType>
+        <EntityType Name="KelompokSale">
+          <Key>
+            <PropertyRef Name="id_kelompokSales" />
+          </Key>
+          <Property Name="id_kelompokSales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_kelompok" Type="Int32" Nullable="false" />
+          <Property Name="id_karyawan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Karyawan" Relationship="Self.FK_Kelompok_Karyawan" FromRole="KelompokSales" ToRole="Karyawan" />
+          <NavigationProperty Name="Kelompok" Relationship="Self.FK_Kelompok_Kelompok" FromRole="KelompokSales" ToRole="Kelompok" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -453,6 +463,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Kelompok_Karyawan">
+          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="1" />
+          <End Role="KelompokSales" Type="Self.KelompokSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karyawan">
+              <PropertyRef Name="id_karyawan" />
+            </Principal>
+            <Dependent Role="KelompokSales">
+              <PropertyRef Name="id_karyawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Penjualan_Karyawan">
           <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="0..1" />
           <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
@@ -462,6 +484,18 @@
             </Principal>
             <Dependent Role="Penjualan">
               <PropertyRef Name="id_karyawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kelompok_Kelompok">
+          <End Role="Kelompok" Type="Self.Kelompok" Multiplicity="1" />
+          <End Role="KelompokSales" Type="Self.KelompokSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kelompok">
+              <PropertyRef Name="id_kelompok" />
+            </Principal>
+            <Dependent Role="KelompokSales">
+              <PropertyRef Name="id_kelompok" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -489,15 +523,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="KelompokSales">
-          <End Role="Karyawan" Type="Self.Karyawan" Multiplicity="*" />
-          <End Role="Kelompok" Type="Self.Kelompok" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="psbkEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Barangs" EntityType="Self.Barang" />
           <EntitySet Name="Detail_penjualan" EntityType="Self.Detail_penjualan" />
           <EntitySet Name="Karyawans" EntityType="Self.Karyawan" />
           <EntitySet Name="Kelompoks" EntityType="Self.Kelompok" />
+          <EntitySet Name="KelompokSales" EntityType="Self.KelompokSale" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
           <EntitySet Name="Penjualans" EntityType="Self.Penjualan" />
           <EntitySet Name="Rencanas" EntityType="Self.Rencana" />
@@ -524,9 +555,17 @@
             <End Role="Penjualan" EntitySet="Penjualans" />
             <End Role="Detail_penjualan" EntitySet="Detail_penjualan" />
           </AssociationSet>
+          <AssociationSet Name="FK_Kelompok_Karyawan" Association="Self.FK_Kelompok_Karyawan">
+            <End Role="Karyawan" EntitySet="Karyawans" />
+            <End Role="KelompokSales" EntitySet="KelompokSales" />
+          </AssociationSet>
           <AssociationSet Name="FK_Penjualan_Karyawan" Association="Self.FK_Penjualan_Karyawan">
             <End Role="Karyawan" EntitySet="Karyawans" />
             <End Role="Penjualan" EntitySet="Penjualans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kelompok_Kelompok" Association="Self.FK_Kelompok_Kelompok">
+            <End Role="Kelompok" EntitySet="Kelompoks" />
+            <End Role="KelompokSales" EntitySet="KelompokSales" />
           </AssociationSet>
           <AssociationSet Name="FK_Penjualan_Toko" Association="Self.FK_Penjualan_Toko">
             <End Role="Toko" EntitySet="Tokoes" />
@@ -535,10 +574,6 @@
           <AssociationSet Name="FK_Stok_Toko" Association="Self.FK_Stok_Toko">
             <End Role="Toko" EntitySet="Tokoes" />
             <End Role="Stok" EntitySet="Stoks" />
-          </AssociationSet>
-          <AssociationSet Name="KelompokSales" Association="Self.KelompokSales">
-            <End Role="Karyawan" EntitySet="Karyawans" />
-            <End Role="Kelompok" EntitySet="Kelompoks" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -583,6 +618,15 @@
               <MappingFragment StoreEntitySet="Kelompok">
                 <ScalarProperty Name="id_kelompok" ColumnName="id_kelompok" />
                 <ScalarProperty Name="nama_kelompok" ColumnName="nama_kelompok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KelompokSales">
+            <EntityTypeMapping TypeName="psbkModel.KelompokSale">
+              <MappingFragment StoreEntitySet="KelompokSales">
+                <ScalarProperty Name="id_kelompokSales" ColumnName="id_kelompokSales" />
+                <ScalarProperty Name="id_kelompok" ColumnName="id_kelompok" />
+                <ScalarProperty Name="id_karyawan" ColumnName="id_karyawan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -647,14 +691,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="KelompokSales" TypeName="psbkModel.KelompokSales" StoreEntitySet="KelompokSales">
-            <EndProperty Name="Karyawan">
-              <ScalarProperty Name="id_karyawan" ColumnName="id_karyawan" />
-            </EndProperty>
-            <EndProperty Name="Kelompok">
-              <ScalarProperty Name="id_kelompok" ColumnName="id_kelompok" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

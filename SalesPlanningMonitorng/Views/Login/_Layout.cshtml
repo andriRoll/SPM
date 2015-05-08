@@ -1,0 +1,22 @@
+﻿@{
+    var lay = "";
+    if (Session["LogedUserGrup"] != null)
+    {
+        var control = Session["LogedUserGrup"].ToString();
+
+        string layout = "";
+
+        if (control == "Supervisor") {
+            layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
+        }
+        else
+        {
+            layout = "~/Views/Shared/_LayoutSales.cshtml";
+        }
+
+        lay = layout;  
+        
+    }
+
+    Layout = lay;
+}

@@ -2,47 +2,68 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
 }
 
-<h2>Delete</h2>
+<!-- container-slide -->
+<div class="uk-container-center uk-width-medium-3-4 cs-containter-heigth">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Barang</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nama_barang)
-        </dt>
+    <!-- mobile-navbar -->
+    <nav class="uk-navbar uk-margin-large-bottom uk-hidden-large ">
+        <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+        <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Sales Planning and Monitoring</div>
+    </nav>
+    <!-- end-mobile-navbar -->
+    <!-- container-slide-container -->
+    <div class="uk-grid uk-margin-right uk-margin-small-left uk-margin-large-top uk-margin-large-bottom" data-uk-grid-margin="">
 
-        <dd>
-            @Html.DisplayFor(model => model.nama_barang)
-        </dd>
+        <!-- form-pengisian-barang -->
+        <div class="uk-width-medium-1-1 cs-min-height">
+            <div class="uk-panel uk-panel-header">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.harga)
-        </dt>
+                <h3 class="uk-panel-title">Delete Barang</h3>
+                <h3>Apakah anda yakin akan menghapus @Html.DisplayFor(model => model.nama_barang) ?</h3>
+                <!-- tabel-penjualan -->
+                <div class="uk-overflow-container uk-margin-large-top">
 
-        <dd>
-            @Html.DisplayFor(model => model.harga)
-        </dd>
+                    <table class="uk-table uk-table-striped uk-table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Harga Barang</th>
+                                <th>Kategori</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.kategori)
-        </dt>
+                            <tr>
+                                <td>@Html.DisplayFor(model => model.nama_barang)</td>
+                                <td>@Html.DisplayFor(model => model.harga)</td>
+                                <td>@Html.DisplayFor(model => model.kategori)</td>
+                                <td>
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.kategori)
-        </dd>
+                                        <div class="form-actions no-color">
+                                            <input type="submit" value="Delete" class="uk-button uk-button-danger" />
+                                            <a class="uk-button uk-button-success" @Html.ActionLink("Back to List", "Index")
 
-    </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end-form-pengisian-barang -->
+
         </div>
-    }
-</div>
+
+
+    </div>

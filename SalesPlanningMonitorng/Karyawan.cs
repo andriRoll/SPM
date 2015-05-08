@@ -16,8 +16,8 @@ namespace SalesPlanningMonitorng
     {
         public Karyawan()
         {
+            this.KelompokSales = new HashSet<KelompokSale>();
             this.Penjualans = new HashSet<Penjualan>();
-            this.Kelompoks = new HashSet<Kelompok>();
         }
     
         public int id_karyawan { get; set; }
@@ -27,7 +27,7 @@ namespace SalesPlanningMonitorng
         public System.DateTime tanggal_lahir { get; set; }
         public string photo { get; set; }
     
+        public virtual ICollection<KelompokSale> KelompokSales { get; set; }
         public virtual ICollection<Penjualan> Penjualans { get; set; }
-        public virtual ICollection<Kelompok> Kelompoks { get; set; }
     }
 }

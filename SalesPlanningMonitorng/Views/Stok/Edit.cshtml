@@ -1,0 +1,118 @@
+﻿@model SalesPlanningMonitorng.Stok
+
+@Styles.Render("~/Content/uikit.css")
+@Styles.Render("~/Content/uikit.almost-flat.min.css")
+@Styles.Render("~/Content/percent-pie.css")
+@Styles.Render("~/Content/style.css")
+@Scripts.Render("~/Scripts/jquery-2.1.0.js")
+@Scripts.Render("~/Scripts/uikit.min.js")
+@Scripts.Render("~/Scripts/easypiechart.js")
+@Scripts.Render("~/Scripts/Chart.js")
+@Scripts.Render("~/Scripts/jquery.animateNumber.js")
+@Scripts.Render("~/Scripts/components/grid.js")
+@Scripts.Render("~/Scripts/components/sticky.js")
+@Scripts.Render("~/Scripts/components/tooltip.js")
+@Scripts.Render("~/Scripts/components/form-select.js")
+@Scripts.Render("~/Scripts/components/pagination.js")
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="uk-grid uk-margin-right uk-margin-small-left uk-margin-large-top uk-margin-large-bottom" data-uk-grid-margin="">
+
+    <!-- form-pengisian-barang -->
+    <div class="uk-width-medium-1-1">
+        <div class="uk-panel uk-panel-header">
+
+            <h3 class="uk-panel-title">Form Pengisian Penjualan Barang</h3>
+            <div class="uk-form uk-form-stacked">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.id_toko)
+
+
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">Nama Barang</label>
+                        <div class="uk-form-controls">
+                            @Html.DropDownList("id_barang", String.Empty)
+                            @Html.ValidationMessageFor(model => model.id_barang)
+                        </div>
+                    </div>
+
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">Harga Barang</label>
+                        <div class="uk-form-controls">
+                            @Html.DropDownList("id_toko", String.Empty)
+                            @Html.ValidationMessageFor(model => model.id_toko)
+                        </div>
+                    </div>
+
+                    <div class="uk-form-row">
+                        <label class="uk-form-label">Kategori</label>
+                        <div class="uk-form-controls">
+                            @Html.TextBoxFor(model => model.jumlah, new { @class = "uk-width-1-1" })
+                            @Html.ValidationMessageFor(model => model.jumlah)
+                        </div>
+
+                    </div>
+
+                    <div class="uk-form-row uk-margin-bottom">
+                        <div class="uk-form-controls">
+                            <button class="uk-button uk-button-primary uk-hidden-small" type="submit">Submit</button>
+
+                            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-hidden-large uk-hidden-medium ukk-visible-small" type="submit">Submit</button>
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                        </div>
+                    </div>
+                }
+            </div>
+s

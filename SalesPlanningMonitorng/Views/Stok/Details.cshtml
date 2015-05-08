@@ -1,0 +1,42 @@
+﻿@model SalesPlanningMonitorng.Stok
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stok</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.jumlah)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jumlah)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barang.nama_barang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barang.nama_barang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toko.nama_toko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toko.nama_toko)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

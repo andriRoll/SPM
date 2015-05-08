@@ -29,6 +29,7 @@ namespace SalesPlanningMonitorng
         public virtual DbSet<Detail_penjualan> Detail_penjualan { get; set; }
         public virtual DbSet<Karyawan> Karyawans { get; set; }
         public virtual DbSet<Kelompok> Kelompoks { get; set; }
+        public virtual DbSet<KelompokSale> KelompokSales { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Penjualan> Penjualans { get; set; }
         public virtual DbSet<Rencana> Rencanas { get; set; }

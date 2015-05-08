@@ -11,11 +11,15 @@ namespace SalesPlanningMonitorng
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Login
     {
         public int id_login { get; set; }
+        [Required(ErrorMessage="Please insert Username", AllowEmptyStrings=false)]
         public string username { get; set; }
+        [Required(ErrorMessage="Please insert Password", AllowEmptyStrings=false)]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
         public string pass { get; set; }
         public string grup { get; set; }
     }
